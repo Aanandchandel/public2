@@ -229,7 +229,7 @@ export const getItemsByCategory = async (req, res) => {
     // Extracting all items from matching sections
     const items = sections.flatMap((section) => section.items);
 
-    res.status(200).json(items);
+    res.status(200).json(sections);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
