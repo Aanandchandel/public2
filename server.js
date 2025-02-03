@@ -20,7 +20,7 @@ const app = express()
 app.use(
   cors(
     // {
-      // origin: "http://localhost:5173", // Replace with your frontend URL
+      // origin: "https://public2-gqyq.onrender.com:5173", // Replace with your frontend URL
       // credentials: true,
       // }
       
@@ -58,7 +58,7 @@ const connectDB = async () => {
 
 connectDB()
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 80
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 

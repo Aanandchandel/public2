@@ -5,7 +5,8 @@ import Section from "../models/Section.js"
 export const getCategories = async (req, res, next) => {
   try {
     const categories = await Category.find()
-    res.json(categories)
+    console.log("Fetching cateeeeeeeeeee")
+    res.json({...categories,message:"success"})
   } catch (error) {
     next(error)
   }
@@ -208,4 +209,29 @@ export const getAllItems = async (req, res, next) => {
     next(error)
   }
 }
+
+
+export const getItemsByCategory = async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+
+    if (!categoryId) {
+      return res.status(400).json({ error: "Category ID is required" });
+    }
+
+    // Find sections that match the categoryId
+    const sections = await Section.find({ categoryId });
+
+    if (!sections.length) {
+      return res.status(404).json({ message: "No items found for this category" });
+    }
+
+    // Extracting all items from matching sections
+    const items = sections.flatMap((section) => section.items);
+
+    res.status(200).json(items);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error", details: error.message });
+  }
+};
 
